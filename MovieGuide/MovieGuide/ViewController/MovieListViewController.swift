@@ -7,24 +7,51 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+
+struct TestBox {
+    let movieImg: UIImage
+    let movieName: String
+    let movieDetail: String
+    let releaseDate: String
+    let movieStar: String
+}
 
 class MovieListViewController: UIViewController {
 
+    @IBOutlet weak var listSeg: UISegmentedControl!
+    @IBOutlet weak var listTableView: UITableView!
+
+    var movieListViewModel: MovieListViewModel = MovieListViewModel()
+
+    let disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        binding()
+    }
 
-        // Do any additional setup after loading the view.
+    func binding() {
+        // output
+        movieListViewModel.fetchList.bind(to: listTableView.rx.items(cellIdentifier: "Cell", cellType: MovieListTableViewCell.self)) { row, element, cell in
+
+            cell.movieImageView.image = element.movieImg
+            cell.movieNameLabel.text = element.movieName
+            cell.movieDetailLabel.text = element.movieDetail
+            cell.releaseDateLabel.text = element.releaseDate
+            cell.movieStarLabel.text = element.movieStar
+        }
+            .disposed(by: disposeBag)
+
+        // 1. segControl 받음 뷰모델의 세그먼트체인지가 구독하게 함.
+        
+        // input
+        listSeg.rx.selectedSegmentIndex
+            .bind(to: movieListViewModel.segmentChange)
+            .disposed(by: disposeBag)
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }
