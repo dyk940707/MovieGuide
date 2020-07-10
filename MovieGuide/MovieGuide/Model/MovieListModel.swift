@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - MovieListModel
 struct MovieListModel: Codable {
-    let page, totalResults, totalPages: Int
+    let page, totalResults, totalPages: Int?
     let results: [Result]
 
     enum CodingKeys: String, CodingKey {
@@ -31,7 +31,7 @@ struct MovieListModel: Codable {
         let originalLanguage: String
         let originalTitle: String
         let genreIDS: [Int]
-        let backdropPath: String
+        let backdropPath: String?
         let adult: Bool
         let overview, posterPath: String
 
