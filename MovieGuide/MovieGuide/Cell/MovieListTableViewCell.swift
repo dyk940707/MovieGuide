@@ -27,21 +27,5 @@ class MovieListTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    func layout() {
-        movieImageView.snp.makeConstraints {
-            $0.top.equalTo(10)
-            $0.left.equalTo(10)
-            $0.width.equalTo(150)
-            $0.height.equalTo(150)
-        }
-        
-        movieNameLabel.snp.makeConstraints {
-            $0.top.equalTo(10)
-            $0.left.equalTo(movieImageView.snp_rightMargin).offset(10)
-            $0.width.equalTo(250)
-            $0.height.equalTo(30)
-        }
-    }
 
 }
