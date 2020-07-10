@@ -22,6 +22,8 @@
 		485A139124B58DAF004A5DDC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 485A139024B58DAF004A5DDC /* Kingfisher */; };
 		485A139424B599AC004A5DDC /* MovieListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485A139324B599AC004A5DDC /* MovieListTableViewCell.swift */; };
 		485A139724B5B241004A5DDC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 485A139624B5B241004A5DDC /* SnapKit */; };
+		488F224124B82D3200CB8BC8 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F224024B82D3200CB8BC8 /* APIService.swift */; };
+		488F224424B84F0D00CB8BC8 /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 488F224324B84F0D00CB8BC8 /* RxAlamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,7 @@
 		485A138424B57343004A5DDC /* MovieSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchViewModel.swift; sourceTree = "<group>"; };
 		485A138D24B57520004A5DDC /* MovieListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListModel.swift; sourceTree = "<group>"; };
 		485A139324B599AC004A5DDC /* MovieListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTableViewCell.swift; sourceTree = "<group>"; };
+		488F224024B82D3200CB8BC8 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +50,7 @@
 				485A139124B58DAF004A5DDC /* Kingfisher in Frameworks */,
 				485A138C24B57435004A5DDC /* RxRelay in Frameworks */,
 				485A138A24B57435004A5DDC /* RxCocoa in Frameworks */,
+				488F224424B84F0D00CB8BC8 /* RxAlamofire in Frameworks */,
 				485A138824B57435004A5DDC /* RxSwift in Frameworks */,
 				485A139724B5B241004A5DDC /* SnapKit in Frameworks */,
 			);
@@ -125,6 +129,7 @@
 		488F223F24B829F200CB8BC8 /* APIService */ = {
 			isa = PBXGroup;
 			children = (
+				488F224024B82D3200CB8BC8 /* APIService.swift */,
 			);
 			path = APIService;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 				485A138B24B57435004A5DDC /* RxRelay */,
 				485A139024B58DAF004A5DDC /* Kingfisher */,
 				485A139624B5B241004A5DDC /* SnapKit */,
+				488F224324B84F0D00CB8BC8 /* RxAlamofire */,
 			);
 			productName = MovieGuide;
 			productReference = 485A136424B559BF004A5DDC /* MovieGuide.app */;
@@ -184,6 +190,7 @@
 				485A138624B57435004A5DDC /* XCRemoteSwiftPackageReference "RxSwift" */,
 				485A138F24B58DAF004A5DDC /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				485A139524B5B240004A5DDC /* XCRemoteSwiftPackageReference "SnapKit" */,
+				488F224224B84F0D00CB8BC8 /* XCRemoteSwiftPackageReference "RxAlamofire" */,
 			);
 			productRefGroup = 485A136524B559BF004A5DDC /* Products */;
 			projectDirPath = "";
@@ -218,6 +225,7 @@
 				485A139424B599AC004A5DDC /* MovieListTableViewCell.swift in Sources */,
 				485A137F24B5685E004A5DDC /* MovieSearchViewController.swift in Sources */,
 				485A138124B56F10004A5DDC /* MovieListViewController.swift in Sources */,
+				488F224124B82D3200CB8BC8 /* APIService.swift in Sources */,
 				485A138324B57336004A5DDC /* MovieListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -444,6 +452,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		488F224224B84F0D00CB8BC8 /* XCRemoteSwiftPackageReference "RxAlamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxAlamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -471,6 +487,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 485A139524B5B240004A5DDC /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		488F224324B84F0D00CB8BC8 /* RxAlamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 488F224224B84F0D00CB8BC8 /* XCRemoteSwiftPackageReference "RxAlamofire" */;
+			productName = RxAlamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
