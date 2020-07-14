@@ -17,10 +17,10 @@ class APIService {
     let disposeBag = DisposeBag()
     static let share = APIService()
     
-    func movieListUpdate(_ movieType: String) -> Observable<[MovieListModel.Result]> {
+    func movieListUpdate(_ movieType: String, page: Int) -> Observable<[MovieListModel.Result]> {
         // 데이터 생산
         let ob = RxAlamofire
-            .requestData(.get, "https://api.themoviedb.org/3/movie/\(movieType)?api_key=588c3d1360999056ac3c7d59dff46fcd&language=ko-KR&page=1")
+            .requestData(.get, "https://api.themoviedb.org/3/movie/\(movieType)?api_key=588c3d1360999056ac3c7d59dff46fcd&language=ko-KR&page=\(page)")
             .mapObject(type: MovieListModel.self)
             .map { (model: MovieListModel) in
                 return model.results
@@ -28,7 +28,23 @@ class APIService {
 
         return ob
     }
+    
+    func movieSearchUpdate(_ query: String, page: Int) -> Observable<[MovieSearchListModel.Result]> {
+        
+        let ob = RxAlamofire.requestData(.get, "https://api.themoviedb.org/3/search/movie?api_key=588c3d1360999056ac3c7d59dff46fcd&language=ko-KR&query=\(query)&page=\(page)&include_adult=false")
+            .mapObject(type: MovieSearchListModel.self)
+            .map { (model: MovieSearchListModel) in
+                return model.results
+        }
+        
+        return ob
+    }
 }
+
+
+
+
+
 
 extension ObservableType {
 
