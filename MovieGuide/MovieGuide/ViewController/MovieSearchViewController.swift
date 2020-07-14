@@ -17,15 +17,14 @@ class MovieSearchViewController: UIViewController {
     @IBOutlet weak var searchTableView: UITableView!
 
     let disposeBag = DisposeBag()
-    var movieListViewModel: MovieListViewModel = MovieListViewModel()
-
+    let movieSearchViewModel = MovieSearchViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupNavigationBar()
         binding()
         searchTableView.delegate = self
-        // Do any additional setup after loading the view.
     }
 
     /** SearchBar Setting */
@@ -41,17 +40,18 @@ class MovieSearchViewController: UIViewController {
     }
 
     func binding() {
-
+        
         //input
         self.navigationItem.searchController?.searchBar
             .rx.text
             .orEmpty
             .debounce(.milliseconds(500), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
-            .bind(to: movieListViewModel.searchChange)
+            .bind(to: movieSearchViewModel.searchChange)
             .disposed(by: disposeBag)
+        
 
-        movieListViewModel.fetchList.bind(to: searchTableView.rx.items(cellIdentifier: "Cell", cellType: MovieListTableViewCell.self)) { row, element, cell in
+        movieSearchViewModel.updateList.bind(to: searchTableView.rx.items(cellIdentifier: "Cell", cellType: MovieSearchTableViewCell.self)) { row, element, cell in
 
             cell.movieImageView.kf.setImage(with: element.movieImg)
             cell.movieNameLabel.text = element.movieName
@@ -72,9 +72,9 @@ extension MovieSearchViewController: UITableViewDelegate {
 
         if offsetY > contentHeight - scrollView.frame.height
         {
-            self.movieListViewModel.searchMovieList(query: self.navigationItem.searchController?.searchBar.text ?? "", forceUpdate: false)
-            print(self.movieListViewModel.searchPageIndex)
-
+            self.movieSearchViewModel.searchMovie(
+                query: self.navigationItem.searchController?.searchBar.text ?? "",
+                firstUpdate: false)
         }
     }
     
