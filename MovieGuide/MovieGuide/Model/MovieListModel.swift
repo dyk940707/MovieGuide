@@ -22,18 +22,22 @@ struct MovieListModel: Codable {
     
     // MARK: - Result
     struct Result: Codable {
-        let popularity: Double
-        let id: Int
-        let video: Bool
-        let voteCount: Int
-        let voteAverage: Double
-        let title, releaseDate: String
-        let originalLanguage: String
-        let originalTitle: String
-        let genreIDS: [Int]
+        let popularity: Double?
+        let id: Int?
+        let video: Bool?
+        let voteCount: Int?
+        let voteAverage: Double?
+        let title, releaseDate: String?
+        let originalLanguage: String?
+        let originalTitle: String?
+        let genreIDS: [Int?]
         let backdropPath: String?
-        let adult: Bool
-        let overview, posterPath: String
+        let adult: Bool?
+        let overview: String?
+        let posterPath: String?
+        var posterURL: URL {
+            return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? "")")!
+        }
 
         enum CodingKeys: String, CodingKey {
             case popularity, id, video
