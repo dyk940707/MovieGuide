@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 struct TestBox {
-    let movieImg: UIImage
+    let movieImg: URL
     let movieName: String
     let movieDetail: String
     let releaseDate: String
@@ -29,6 +29,7 @@ class MovieListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        listTableView.delegate = self
         binding()
     }
 
@@ -36,7 +37,7 @@ class MovieListViewController: UIViewController {
         // output
         movieListViewModel.fetchList.bind(to: listTableView.rx.items(cellIdentifier: "Cell", cellType: MovieListTableViewCell.self)) { row, element, cell in
 
-            cell.movieImageView.image = element.movieImg
+            cell.movieImageView.kf.setImage(with: element.movieImg)
             cell.movieNameLabel.text = element.movieName
             cell.movieDetailLabel.text = element.movieDetail
             cell.releaseDateLabel.text = element.releaseDate
@@ -45,13 +46,28 @@ class MovieListViewController: UIViewController {
             .disposed(by: disposeBag)
 
         // 1. segControl 받음 뷰모델의 세그먼트체인지가 구독하게 함.
-        
+
         // input
         listSeg.rx.selectedSegmentIndex
             .bind(to: movieListViewModel.segmentChange)
             .disposed(by: disposeBag)
-        
+
     }
-    
-    
+
+}
+
+extension MovieListViewController: UITableViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
+    {
+            let offsetY = scrollView.contentOffset.y
+            let contentHeight = scrollView.contentSize.height
+
+            if offsetY > contentHeight - scrollView.frame.height
+            {
+                self.movieListViewModel.loadMovieList(category: "now_playing", forceUpdate: false)
+                print(self.movieListViewModel.pageIndex)
+                
+            }
+    }
 }
