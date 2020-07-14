@@ -178,7 +178,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="180" id="79Q-rD-lpo" customClass="MovieListTableViewCell" customModule="MovieGuide" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="180" id="79Q-rD-lpo" customClass="MovieSearchTableViewCell" customModule="MovieGuide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="79Q-rD-lpo" id="vOh-pl-6K2">
@@ -239,11 +239,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="movieDetailLabel" destination="1Ad-BV-cc2" id="0XF-9B-0YW"/>
-                                            <outlet property="movieImageView" destination="2Ps-CB-1cl" id="WSq-iL-qK5"/>
-                                            <outlet property="movieNameLabel" destination="JRm-hj-a0a" id="QP8-i2-jrW"/>
-                                            <outlet property="movieStarLabel" destination="eLX-gZ-H21" id="7Z5-xY-5zl"/>
-                                            <outlet property="releaseDateLabel" destination="2M1-kZ-W0t" id="yn5-0z-Mya"/>
+                                            <outlet property="movieDetailLabel" destination="1Ad-BV-cc2" id="0Dt-Hf-HlC"/>
+                                            <outlet property="movieImageView" destination="2Ps-CB-1cl" id="9Dg-Rj-zEL"/>
+                                            <outlet property="movieNameLabel" destination="JRm-hj-a0a" id="218-fc-ON7"/>
+                                            <outlet property="movieStarLabel" destination="eLX-gZ-H21" id="sXi-9B-Dr8"/>
+                                            <outlet property="releaseDateLabel" destination="2M1-kZ-W0t" id="sj4-sh-cPi"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
