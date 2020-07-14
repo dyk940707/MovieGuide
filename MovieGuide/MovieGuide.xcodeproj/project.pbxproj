@@ -25,6 +25,7 @@
 		488F224124B82D3200CB8BC8 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F224024B82D3200CB8BC8 /* APIService.swift */; };
 		488F224424B84F0D00CB8BC8 /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 488F224324B84F0D00CB8BC8 /* RxAlamofire */; };
 		489F9B6324BD520100E17738 /* MovieSearchListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489F9B6224BD520100E17738 /* MovieSearchListModel.swift */; };
+		B96209F624BDFE8E00561C78 /* MovieSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96209F524BDFE8E00561C78 /* MovieSearchTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		485A139324B599AC004A5DDC /* MovieListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTableViewCell.swift; sourceTree = "<group>"; };
 		488F224024B82D3200CB8BC8 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		489F9B6224BD520100E17738 /* MovieSearchListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchListModel.swift; sourceTree = "<group>"; };
+		B96209F524BDFE8E00561C78 /* MovieSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				485A139324B599AC004A5DDC /* MovieListTableViewCell.swift */,
+				B96209F524BDFE8E00561C78 /* MovieSearchTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B96209F624BDFE8E00561C78 /* MovieSearchTableViewCell.swift in Sources */,
 				489F9B6324BD520100E17738 /* MovieSearchListModel.swift in Sources */,
 				485A138E24B57520004A5DDC /* MovieListModel.swift in Sources */,
 				485A138524B57343004A5DDC /* MovieSearchViewModel.swift in Sources */,
