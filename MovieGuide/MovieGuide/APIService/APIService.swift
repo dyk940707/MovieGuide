@@ -9,13 +9,32 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Foundation
 import RxAlamofire
 
-class APIService {
+protocol APIService {
+    func movieListUpdate(_ movieType: String, page: Int) -> Observable<[MovieListModel.Result]>
+    
+    func movieSearchUpdate(_ query: String, page: Int) -> Observable<[MovieSearchListModel.Result]>
+}
+
+
+class TestAPIService: APIService {
+    let disposeBag = DisposeBag()
+    static let share = TestAPIService()
+    
+    func movieListUpdate(_ movieType: String, page: Int) -> Observable<[MovieListModel.Result]> {
+        return Observable.from([])
+    }
+    
+    func movieSearchUpdate(_ query: String, page: Int) -> Observable<[MovieSearchListModel.Result]> {
+        return Observable.from([])
+    }
+}
+
+class AFAPIService : APIService {
 
     let disposeBag = DisposeBag()
-    static let share = APIService()
+    static let share = AFAPIService()
     
     func movieListUpdate(_ movieType: String, page: Int) -> Observable<[MovieListModel.Result]> {
         // 데이터 생산
