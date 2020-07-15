@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RealmSwift
 
 class MovieListViewController: UIViewController {
 
@@ -57,8 +58,6 @@ extension MovieListViewController: UITableViewDelegate {
             if offsetY > contentHeight - scrollView.frame.height
             {
                 self.movieListViewModel.loadMovieList(category: "now_playing", forceUpdate: false)
-                print(self.movieListViewModel.pageIndex)
-                
             }
     }
 }
