@@ -10,32 +10,26 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-struct TestBox {
-    let movieImg: URL
-    let movieName: String
-    let movieDetail: String
-    let releaseDate: String
-    let movieStar: String
-}
-
 class MovieListViewController: UIViewController {
 
     @IBOutlet weak var listSeg: UISegmentedControl!
     @IBOutlet weak var listTableView: UITableView!
-
-    var movieListViewModel: MovieListViewModel = MovieListViewModel()
-
+    
+    let movieListViewModel: MovieListViewModelType = MovieListViewModel(apiService: AFAPIService.share)
+    
     let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         listTableView.delegate = self
-        binding()
+        input()
+        output()
     }
 
-    func binding() {
-        // output
-        movieListViewModel.fetchList.bind(to: listTableView.rx.items(cellIdentifier: "Cell", cellType: MovieListTableViewCell.self)) { row, element, cell in
+    func output() {
+        movieListViewModel
+            .updateMovieList
+            .bind(to: listTableView.rx.items(cellIdentifier: "Cell", cellType: MovieListTableViewCell.self)) { row, element, cell in
 
             cell.movieImageView.kf.setImage(with: element.movieImg)
             cell.movieNameLabel.text = element.movieName
@@ -44,16 +38,13 @@ class MovieListViewController: UIViewController {
             cell.movieStarLabel.text = element.movieStar
         }
             .disposed(by: disposeBag)
-
-        // 1. segControl 받음 뷰모델의 세그먼트체인지가 구독하게 함.
-
-        // input
-        listSeg.rx.selectedSegmentIndex
-            .bind(to: movieListViewModel.segmentChange)
-            .disposed(by: disposeBag)
-
     }
-
+    
+    func input() {
+        listSeg.rx.selectedSegmentIndex
+        .bind(to: movieListViewModel.segmentChange)
+        .disposed(by: disposeBag)
+    }
 }
 
 extension MovieListViewController: UITableViewDelegate {
