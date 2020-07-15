@@ -54,3 +54,11 @@ struct MovieListModel: Codable {
         }
     }
 }
+
+struct CustomMovieModel {
+    let movieImg: URL
+    let movieName: String
+    let movieDetail: String
+    let releaseDate: String
+    let movieStar: String
+}
