@@ -17,13 +17,14 @@ class MovieSearchViewController: UIViewController {
     @IBOutlet weak var searchTableView: UITableView!
 
     let disposeBag = DisposeBag()
-    let movieSearchViewModel = MovieSearchViewModel()
+    let movieSearchViewModel: MovieSearchViewModelType = MovieSearchViewModel(apiService: AFAPIService.share)
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupNavigationBar()
-        binding()
+        input()
+        output()
         searchTableView.delegate = self
     }
 
@@ -39,9 +40,8 @@ class MovieSearchViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 
-    func binding() {
+    private func input() {
         
-        //input
         self.navigationItem.searchController?.searchBar
             .rx.text
             .orEmpty
@@ -49,8 +49,10 @@ class MovieSearchViewController: UIViewController {
             .distinctUntilChanged()
             .bind(to: movieSearchViewModel.searchChange)
             .disposed(by: disposeBag)
+    }
+    
+    private func output() {
         
-
         movieSearchViewModel.updateList.bind(to: searchTableView.rx.items(cellIdentifier: "Cell", cellType: MovieSearchTableViewCell.self)) { row, element, cell in
 
             cell.movieImageView.kf.setImage(with: element.movieImg)
