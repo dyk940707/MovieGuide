@@ -12,28 +12,41 @@ import RxCocoa
 import Kingfisher
 
 protocol MovieSearchViewModelType {
+    var searchChangeSubject: PublishSubject<String> { get }
+    var movieSearchListSubject: PublishSubject<[CustomMovieModel]> { get }
     
+    var updateList: Observable<[CustomMovieModel]> { get }
+    
+    var searchPageList: [CustomMovieModel] { get }
+    var searchPageIndex: Int { get }
+    
+    var searchChange: AnyObserver<String> { get }
+    
+    func searchMovie(query: String, firstUpdate: Bool)
 }
 
 class MovieSearchViewModel: MovieSearchViewModelType {
     
     let disposeBag = DisposeBag()
     
+    let apiService: APIService
     /// 검색 스트림
     let searchChangeSubject = PublishSubject<String>()
     /// 검색결과 리스트 스트림
-    let movieListSubject = PublishSubject<[TestBox]>()
+    let movieSearchListSubject = PublishSubject<[CustomMovieModel]>()
     
-    var updateList: Observable<[TestBox]>
+    var updateList: Observable<[CustomMovieModel]>
     
-    var searchPageList = [TestBox]()
+    var searchPageList = [CustomMovieModel]()
     var searchPageIndex: Int = 0
     
     var searchChange: AnyObserver<String>
     
     
-    init() {
-        updateList = movieListSubject.asObservable() // updateList 이벤트에 서브젝트의 이벤트형태를 넣음
+    init(apiService: APIService) {
+        self.apiService = apiService
+        
+        updateList = movieSearchListSubject.asObservable() // updateList 이벤트에 서브젝트의 이벤트형태를 넣음
         searchChange = searchChangeSubject.asObserver() // searchange라는 옵저버에 서브젝트의 옵저버 형태를 넣음
         
         searchChangeSubject
@@ -54,20 +67,20 @@ class MovieSearchViewModel: MovieSearchViewModelType {
         /// Scroll시 인덱스를 증가시켜 다음 페이지 정보 API Call
         searchPageIndex += 1
         
-        APIService.share.movieSearchUpdate(query, page: searchPageIndex)
+        apiService.movieSearchUpdate(query, page: searchPageIndex)
         .map { list in
                 return list.map { result in
-                    TestBox(movieImg: result.posterURL,
-                    movieName: result.originalTitle,
-                    movieDetail: result.overview,
-                    releaseDate: result.releaseDate,
-                    movieStar: "\(result.voteAverage)")
+                    CustomMovieModel(movieImg: result.posterURL,
+                                     movieName: result.originalTitle,
+                                     movieDetail: result.overview,
+                                     releaseDate: result.releaseDate,
+                                     movieStar: "\(result.voteAverage)")
                 }
             }
         .observeOn(MainScheduler.instance)
         .subscribe(onNext:{ list in
             self.searchPageList.append(contentsOf: list)
-            self.movieListSubject.onNext(self.searchPageList)
+            self.movieSearchListSubject.onNext(self.searchPageList)
             
         })
         .disposed(by: disposeBag)

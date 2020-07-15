@@ -13,34 +13,44 @@ import Kingfisher
 
 
 protocol MovieListViewModelType {
-
-    var fetchList: Observable<[TestBox]> { get }
+    
+    var segChangeSubject: PublishSubject<Int> { get }
+    var movieListSubject: BehaviorSubject<[CustomMovieModel]> { get }
+    var updateMovieList: Observable<[CustomMovieModel]> { get }
     var segmentChange: AnyObserver<Int> { get }
     
+    var pageList: [CustomMovieModel] { get }
+    var pageIndex: Int { get}
+
+    func loadMovieList(category: String, forceUpdate: Bool)
 }
 
 class MovieListViewModel: MovieListViewModelType {
 
     let disposeBag = DisposeBag()
 
-    let segChangeInVM = PublishSubject<Int>()
-    let movieListInVM = BehaviorSubject<[TestBox]>(value: [])
-
-    var fetchList: Observable<[TestBox]>
+    let apiService: APIService
     
-    var pageList = [TestBox]()
+    let segChangeSubject = PublishSubject<Int>()
+    let movieListSubject = BehaviorSubject<[CustomMovieModel]>(value: [])
+
+    var updateMovieList: Observable<[CustomMovieModel]>
+    
+    var pageList = [CustomMovieModel]()
     var pageIndex: Int = 0
 
     var segmentChange: AnyObserver<Int>
 
     //2. 옵저버로 만듬
 
-    init() {
-        fetchList = movieListInVM.asObservable()
-        segmentChange = segChangeInVM.asObserver()
+    init(apiService: APIService) {
+        self.apiService = apiService
+        
+        updateMovieList = movieListSubject.asObservable()
+        segmentChange = segChangeSubject.asObserver()
     
         //3. 서브젝트를 구독하여 값변경 -> 리스트를 변환시켜줘야함
-        segChangeInVM
+        segChangeSubject
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] index in
 
@@ -66,11 +76,11 @@ class MovieListViewModel: MovieListViewModelType {
         }
         
         pageIndex += 1
-        APIService.share.movieListUpdate(category, page: pageIndex)
+        apiService.movieListUpdate(category, page: pageIndex)
         .map { list in
             return list.map { result in
                 
-                TestBox(movieImg: result.posterURL,
+                CustomMovieModel(movieImg: result.posterURL,
                         movieName:result.originalTitle ?? "",
                         movieDetail: result.overview ?? "",
                         releaseDate: result.releaseDate ?? "",
@@ -82,7 +92,7 @@ class MovieListViewModel: MovieListViewModelType {
             print(self.pageList.count)
             print(list.count)
             self.pageList.append(contentsOf: list)
-            self.movieListInVM.onNext(self.pageList)
+            self.movieListSubject.onNext(self.pageList)
         })
         .disposed(by: self.disposeBag)
     }
