@@ -14,30 +14,25 @@ import Kingfisher
 
 protocol MovieListViewModelType {
     
-    var segChangeSubject: PublishSubject<Int> { get }
-    var movieListSubject: BehaviorSubject<[CustomMovieModel]> { get }
     var updateMovieList: Observable<[CustomMovieModel]> { get }
     var segmentChange: AnyObserver<Int> { get }
-    
-    var pageList: [CustomMovieModel] { get }
-    var pageIndex: Int { get}
 
     func loadMovieList(category: String, forceUpdate: Bool)
 }
 
 class MovieListViewModel: MovieListViewModelType {
 
-    let disposeBag = DisposeBag()
+    private let disposeBag = DisposeBag()
 
-    let apiService: APIService
+    private let apiService: APIService
     
-    let segChangeSubject = PublishSubject<Int>()
-    let movieListSubject = BehaviorSubject<[CustomMovieModel]>(value: [])
+    private let segChangeSubject = PublishSubject<Int>()
+    private let movieListSubject = BehaviorSubject<[CustomMovieModel]>(value: [])
 
     var updateMovieList: Observable<[CustomMovieModel]>
     
-    var pageList = [CustomMovieModel]()
-    var pageIndex: Int = 0
+    private var pageList = [CustomMovieModel]()
+    private var pageIndex: Int = 0
 
     var segmentChange: AnyObserver<Int>
 

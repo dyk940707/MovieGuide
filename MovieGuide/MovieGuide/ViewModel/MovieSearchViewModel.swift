@@ -10,10 +10,9 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Kingfisher
+import RealmSwift
 
 protocol MovieSearchViewModelType {
-    var searchChangeSubject: PublishSubject<String> { get }
-    var movieSearchListSubject: PublishSubject<[CustomMovieModel]> { get }
     
     var updateList: Observable<[CustomMovieModel]> { get }
     
@@ -31,9 +30,9 @@ class MovieSearchViewModel: MovieSearchViewModelType {
     
     let apiService: APIService
     /// 검색 스트림
-    let searchChangeSubject = PublishSubject<String>()
+    private let searchChangeSubject = PublishSubject<String>()
     /// 검색결과 리스트 스트림
-    let movieSearchListSubject = PublishSubject<[CustomMovieModel]>()
+    private let movieSearchListSubject = PublishSubject<[CustomMovieModel]>()
     
     var updateList: Observable<[CustomMovieModel]>
     
@@ -41,6 +40,9 @@ class MovieSearchViewModel: MovieSearchViewModelType {
     var searchPageIndex: Int = 0
     
     var searchChange: AnyObserver<String>
+    
+    var savedArray: Array<SearchedKeywordData> = []
+    var keywordArray = [String]()
     
     
     init(apiService: APIService) {
@@ -53,8 +55,35 @@ class MovieSearchViewModel: MovieSearchViewModelType {
             .subscribeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] query in
                 self.searchMovie(query: query, firstUpdate: true)
+                if query != "" {
+                    self.saveKeyword(query: query)
+                }
         })
         .disposed(by: disposeBag)
+    }
+    
+    func saveKeyword(query: String) {
+        /// entity
+        let model = SearchedKeywordData()
+        model.searchedKeyword = query
+        
+        ///insert
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(model)
+
+        }
+        /// select
+        let saveKeyword = realm.objects(SearchedKeywordData.self)//.sorted(byKeyPath: "searchedKeyword", ascending: true)
+        
+        savedArray = Array(saveKeyword)
+        keywordArray = []
+
+        savedArray.forEach {
+            keywordArray.append($0.searchedKeyword)
+        }
+        keywordArray.reverse()
+        print(keywordArray)
     }
     
     /// Movie검색 함수
