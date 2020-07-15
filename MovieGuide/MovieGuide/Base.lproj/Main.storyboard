@@ -246,6 +246,28 @@
                                             <outlet property="releaseDateLabel" destination="2M1-kZ-W0t" id="sj4-sh-cPi"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchCell" id="VUQ-8w-oQR" customClass="SearchedListTableViewCell" customModule="MovieGuide" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="208" width="414" height="41.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VUQ-8w-oQR" id="zct-bh-uOu">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="41.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BrX-KH-2TS">
+                                                    <rect key="frame" x="20" y="10" width="374" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BrX-KH-2TS" firstAttribute="leading" secondItem="zct-bh-uOu" secondAttribute="leading" constant="20" id="YFo-08-N3j"/>
+                                                <constraint firstAttribute="bottom" secondItem="BrX-KH-2TS" secondAttribute="bottom" constant="10" id="gcd-HC-f8q"/>
+                                                <constraint firstAttribute="trailing" secondItem="BrX-KH-2TS" secondAttribute="trailing" constant="20" id="sJy-cl-ZEh"/>
+                                                <constraint firstItem="BrX-KH-2TS" firstAttribute="top" secondItem="zct-bh-uOu" secondAttribute="top" constant="10" id="tlK-qh-Zr0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -293,7 +315,7 @@
                     <tabBarItem key="tabBarItem" systemItem="search" id="tgQ-GI-ehh"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="kMI-rZ-u5X">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
